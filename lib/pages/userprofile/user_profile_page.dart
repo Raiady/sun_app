@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sun_app/services/users/users_services.dart';
+import 'package:flutter_ecom/services/users/users_services.dart';
 import 'package:provider/provider.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -7,6 +7,8 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // var users = Provider.of<UsersServices>(context);
+    var users = Provider.of<UsersServices>(context, listen: false).getUser();
     return Padding(
       padding: const EdgeInsets.all(25.0),
       child: Column(
@@ -45,7 +47,7 @@ class UserProfilePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('alberto sales'),
-                        Text('albertosales@ifmt.edu.br'),
+                        const Text('albertosales@ifmt.edu.br'),
                         Text('(65) - 99609- 9909'),
                       ],
                     )

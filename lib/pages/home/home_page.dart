@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sun_app/pages/cart/cart_page.dart';
-import 'package:sun_app/services/cart/cart_service.dart';
+import 'package:flutter_ecom/pages/cart/cart_page.dart';
+import 'package:flutter_ecom/services/cart/cart_service.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,17 +20,16 @@ class HomePage extends StatelessWidget {
             .map(
               (e) => ListTile(
                 title: Text(e.name ?? ''),
-                subtitle: Text("USD ${e.price ?? ''}"),
+                subtitle: Text("USD " + (e.price ?? '')),
                 trailing: IconButton(
                   icon: Icon(
                     cart.contains(e) ? Icons.remove_circle : Icons.add_circle,
                   ),
                   onPressed: () {
-                    if (!cart.contains(e)) {
+                    if (!cart.contains(e))
                       context.read<CartService>().addToCart(e);
-                    } else {
+                    else
                       context.read<CartService>().removeFromCart(e);
-                    }
                   },
                 ),
               ),
@@ -43,7 +42,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const CartPage(),
+                    builder: (context) => CartPage(),
                   ),
                 );
               },
@@ -51,14 +50,14 @@ class HomePage extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.red,
                     ),
                     child: Text(cart.length.toString()),
                   ),
-                  const SizedBox(width: 8),
-                  const Text('Cart'),
+                  SizedBox(width: 8),
+                  Text('Cart'),
                 ],
               ),
             ),

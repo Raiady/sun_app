@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecom/services/users/users_services.dart';
+import 'package:flutter_ecom/services/users_services.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _userName = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
+  TextEditingController _userName = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

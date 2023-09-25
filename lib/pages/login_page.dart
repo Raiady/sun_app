@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecom/services/users/users_services.dart';
+import 'package:flutter_ecom/pages/signup_page.dart';
+import 'package:flutter_ecom/services/users_services.dart';
 
-class SignUpPage extends StatelessWidget {
-  SignUpPage({super.key});
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _userName = TextEditingController();
+class LoginPage extends StatelessWidget {
+  LoginPage({super.key});
+  TextEditingController _email = TextEditingController();
+  TextEditingController _password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +26,7 @@ class SignUpPage extends StatelessWidget {
               ),
             ),
             const Text(
-              "Registre-se",
+              "Bem-vindo de Volta",
               style: TextStyle(
                 fontSize: 22,
                 color: Color.fromARGB(255, 213, 107, 8),
@@ -58,25 +59,12 @@ class SignUpPage extends StatelessWidget {
               height: 10.0,
             ),
             TextFormField(
+              obscureText: true,
               controller: _password,
               decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.fingerprint),
                   label: Text("Senha"),
                   suffixIcon: Icon(Icons.remove_red_eye),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1.3),
-                  ),
-                  focusedBorder:
-                      OutlineInputBorder(borderSide: BorderSide(width: 1.5))),
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            TextFormField(
-              controller: _userName,
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.person),
-                  label: Text("Nome do usuário"),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(width: 1.3),
                   ),
@@ -102,31 +90,31 @@ class SignUpPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     UsersServices _usersServices = UsersServices();
-                    if (await _usersServices.signUp(
-                      _email.text,
-                      _password.text,
-                      _userName.text,
-                    )) {
-                      if (context.mounted) Navigator.of(context).pop();
-                    } else {
-                      if (context.mounted) {
-                        var snackBar = const SnackBar(
-                          content: Text('Algum erro aconteceu no registro'),
-                          backgroundColor: Color.fromARGB(255, 161, 71, 66),
-                          behavior: SnackBarBehavior.floating,
-                          margin: EdgeInsets.all(50),
-                          elevation: 20,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      }
-                    }
+                    _usersServices.signIn(
+                        email: _email.text,
+                        password: _password.text,
+                        onSucess: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => Container()));
+                        },
+                        onFail: (e) {
+                          var snack = SnackBar(
+                            content: Text(e),
+                            backgroundColor: Colors.red,
+                            elevation: 20,
+                            behavior: SnackBarBehavior.floating,
+                            margin: EdgeInsets.all(20),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snack);
+                        });
                   },
                   style: ElevatedButton.styleFrom(
                       elevation: 1.5,
                       minimumSize: const Size.fromHeight(50),
                       shape: LinearBorder.bottom()),
                   child: const Text(
-                    'Registrar',
+                    'Login',
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: 20,
@@ -177,19 +165,29 @@ class SignUpPage extends StatelessWidget {
                 const SizedBox(
                   height: 8.0,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text('Já tem uma conta?'),
-                    SizedBox(
+                    const Text('Ainda não tem conta?'),
+                    const SizedBox(
                       width: 10,
                     ),
-                    Text(
-                      'Login',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue,
-                          fontSize: 16),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SignUpPage(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Registre-se',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                            fontSize: 16),
+                      ),
                     ),
                   ],
                 ),

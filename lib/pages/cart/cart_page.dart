@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sun_app/services/cart/cart_service.dart';
+import 'package:flutter_ecom/services/cart/cart_service.dart';
 import 'package:provider/provider.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({super.key});
+  CartPage();
 
   @override
-  // ignore: library_private_types_in_public_api
   _CartPageState createState() => _CartPageState();
 }
 
@@ -23,9 +22,9 @@ class _CartPageState extends State<CartPage> {
             .map(
               (e) => ListTile(
                 title: Text(e.name ?? ''),
-                subtitle: Text("USD ${e.price ?? ''}"),
+                subtitle: Text("USD " + (e.price ?? '')),
                 trailing: IconButton(
-                  icon: const Icon(Icons.remove_circle),
+                  icon: Icon(Icons.remove_circle),
                   onPressed: () {
                     context.read<CartService>().removeFromCart(e);
                   },

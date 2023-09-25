@@ -5,16 +5,13 @@ class Users {
   String? email;
   String? password;
   String? phone;
-  String? birth;
-  String? social;
+  String? birthday;
   Users({
     this.id,
     this.userName,
     this.email,
     this.password,
     this.phone,
-    this.birth,
-    this.social,
   });
 
   //método para converter dados do objeto em formato compatível com JSON
@@ -23,10 +20,8 @@ class Users {
       'id': id,
       'userName': userName,
       'email': email,
-      'social': social,
       'phone': phone,
-      'password': password,
-      'birth': birth,
+      'password': password
     };
   }
 }

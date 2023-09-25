@@ -1,9 +1,8 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:sun_app/pages/authentication/signup_page.dart';
-import 'package:sun_app/pages/main/main_page.dart';
-import 'package:sun_app/services/users/users_services.dart';
+import 'package:flutter_ecom/pages/authentication/signup_page.dart';
+import 'package:flutter_ecom/pages/home/home_page.dart';
+import 'package:flutter_ecom/pages/main/main_page.dart';
+import 'package:flutter_ecom/services/users/users_services.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -92,8 +91,8 @@ class LoginPage extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    UsersServices usersServices = UsersServices();
-                    usersServices.signIn(
+                    UsersServices _usersServices = UsersServices();
+                    _usersServices.signIn(
                         email: _email.text,
                         password: _password.text,
                         onSucess: () {

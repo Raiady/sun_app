@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sun_app/pages/userprofile/user_profile_page.dart';
+import 'package:flutter_ecom/pages/userprofile/user_profile_page.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();

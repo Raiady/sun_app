@@ -7,16 +7,14 @@ class Users {
   String? email;
   String? password;
   String? phone;
-  String? birth;
-  String? social;
-  Users(
-      {this.id,
-      this.userName,
-      this.email,
-      this.password,
-      this.phone,
-      this.birth,
-      this.social});
+  String? birthday;
+  Users({
+    this.id,
+    this.userName,
+    this.email,
+    this.password,
+    this.phone,
+  });
 
   //método para converter dados do objeto em formato compatível com JSON
   Map<String, dynamic> toJson() {
@@ -25,9 +23,7 @@ class Users {
       'userName': userName,
       'email': email,
       'phone': phone,
-      'password': password,
-      'social': social,
-      'birth': birth,
+      'password': password
     };
   }
 
@@ -37,7 +33,5 @@ class Users {
     userName = doc.get('userName');
     email = doc.get('email');
     phone = doc.get('phone');
-    social = doc.get('social');
-    birth = doc.get('birth');
   }
 }
