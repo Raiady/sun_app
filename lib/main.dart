@@ -1,19 +1,23 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ecom/pages/authentication/login_page.dart';
-import 'package:flutter_ecom/services/cart/cart_service.dart';
-import 'package:flutter_ecom/services/users/users_services.dart';
+import 'package:sun_app/pages/authentication/login_page.dart';
+import 'package:sun_app/pages/userprofile/user_profile_edit.dart';
+import 'package:sun_app/services/users/users_services.dart';
+import 'package:sun_app/pages/home/home.dart';
+import 'package:sun_app/pages/main/main_page.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   var options = const FirebaseOptions(
-    apiKey: "AIzaSyCw3dssTp11bo7SrCprjaKBP8zZaLCKTv8",
-    projectId: "flutter-ecom-b5159",
-    messagingSenderId: "1085970376249",
-    appId: "1:1085970376249:web:88d6cc28e2f6d14586cfe8",
-  );
+      apiKey: "AIzaSyBTBkVSey4D6Ld586Jt3d2cd0IRAey_ZkE",
+  authDomain: "sunapp-88983.firebaseapp.com",
+  projectId: "sunapp-88983",
+  storageBucket: "sunapp-88983.appspot.com",
+  messagingSenderId: "424370028967",
+  appId: "1:424370028967:web:68aadc8ca86066b673b682",
+  measurementId: "G-6JQZF0V35Y");
   if (kIsWeb) {
     await Firebase.initializeApp(options: options);
   } else {
@@ -34,6 +38,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<UsersServices>(
           create: (context) => UsersServices(),
+          lazy: false,
         ),
       ],
       child: MaterialApp(
@@ -41,9 +46,15 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          colorSchemeSeed: Color(0xFF012B05),
+          colorSchemeSeed: const Color(0xFF012B05),
         ),
-        home: LoginPage(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => LoginPage(),
+          '/home:': (context) => const HomePage(),
+          '/mainpage': (context) => const MainPage(),
+          '/userprofileedit': (context) => const UserProfileEdit(),
+        },
       ),
     );
   }

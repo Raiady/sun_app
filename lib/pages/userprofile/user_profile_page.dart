@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecom/services/users/users_services.dart';
+import 'package:sun_app/services/users/users_services.dart';
 import 'package:provider/provider.dart';
 
 class UserProfilePage extends StatelessWidget {
@@ -7,8 +7,6 @@ class UserProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var users = Provider.of<UsersServices>(context);
-    var users = Provider.of<UsersServices>(context, listen: false).getUser();
     return Padding(
       padding: const EdgeInsets.all(25.0),
       child: Column(
@@ -43,12 +41,12 @@ class UserProfilePage extends StatelessWidget {
                     const SizedBox(
                       width: 15,
                     ),
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('alberto sales'),
-                        const Text('albertosales@ifmt.edu.br'),
-                        Text('(65) - 99609- 9909'),
+                        Text('${usersServices.users.userName}'),
+                        Text('${usersServices.users.email}'),
+                        Text('${usersServices.users.phone}'),
                       ],
                     )
                   ]);
@@ -56,33 +54,36 @@ class UserProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          const Card(
-            elevation: 1.0,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.person_add_alt_1_outlined,
-                    size: 90.0,
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Cadastro',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, '/userprofileedit'),
+            child: const Card(
+              elevation: 1.0,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.person_add_alt_1_outlined,
+                      size: 90.0,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Editar',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        Text('Edite dados pessoais, profissionais'),
-                        Text('Emails, telefones, redes sociais e outros'),
-                      ]),
-                ],
+                          Text('Edite dados pessoais, profissionais'),
+                          Text('Emails, telefones, redes sociais e outros'),
+                        ]),
+                  ],
+                ),
               ),
             ),
           ),

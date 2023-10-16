@@ -5,20 +5,23 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return Scaffold(
       appBar: AppBar(
         elevation: 10,
-        title: const Text('Vitrine') ,
+        title: const Text("Vitrine"),          
       ),
-      body:  Center(
+      body: Center(
         child: Column(children: [
-          
-          ListView.builder(itemCount: 1, 
-          itemBuilder: (BuildContext context,  int index){
-            return Container();
-          } )
-        ],)
-         )  
-    );  
+          const Text("Ofertas"),
+          ListView.builder(
+            itemCount: 1,
+            itemBuilder: (BuildContext context, int index) {
+              return Container();
+              },
+            ),
+        ]),
+      )
+
+    );
   }
 }

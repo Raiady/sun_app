@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ecom/models/users/users.dart';
+import 'package:sun_app/models/users/users.dart';
 
 class UsersServices extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -11,19 +11,30 @@ class UsersServices extends ChangeNotifier {
   UsersServices() {
     _loadingCurrentUser;
   }
+
   DocumentReference get _firetoreRef => _firestore.doc('users/${users.id}');
 
   //Método para registrar o usuário no firebase console
-  Future<bool> signUp(String email, String password, String userName) async {
+  Future<bool> signUp(
+      {String? email,
+      String? password,
+      String? userName,
+      String? phone,
+      String? social,
+      String? birthday}) async {
     try {
       User? user = (await _auth.createUserWithEmailAndPassword(
-              email: email, password: password))
+              email: email!, password: password!))
           .user;
 
       users.id = user!.uid;
       users.email = email;
       users.userName = userName;
+      users.phone = phone;
+      users.social = social;
+      users.birthday = birthday;
       saveUserDetails();
+
       return Future.value(true);
     } on FirebaseAuthException catch (error) {
       if (error.code == 'invalid-email') {
@@ -46,10 +57,13 @@ class UsersServices extends ChangeNotifier {
       Function? onSucess,
       Function? onFail}) async {
     try {
-      await _auth.signInWithEmailAndPassword(
+      User? user = (await _auth.signInWithEmailAndPassword(
         email: email!,
         password: password!,
-      );
+      ))
+          .user;
+
+      _loadingCurrentUser(user: user);
       onSucess!();
       return Future.value(true);
     } on FirebaseAuthException catch (e) {
@@ -70,6 +84,12 @@ class UsersServices extends ChangeNotifier {
 
   saveUserDetails() async {
     await _firetoreRef.set(users.toJson());
+  }
+
+  updateUserDetails(Users users) async {
+    try {
+      await _firetoreRef.collection('users').doc(users.id).set(users.toJson());
+    } on FirebaseException catch (e) {}
   }
 
   Future<Users> getUser() async {
